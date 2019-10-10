@@ -1,0 +1,21 @@
+{
+  "name": "19.gallery_viewer",
+  "version": "1.0.0",
+  "description": "gallery viewer test for instructor position",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "author": "Haythem Ben Drissia",
+  "license": "ISC",
+  "dependencies": {
+    "config": "^3.2.3",
+    "express": "^4.17.1",
+    "mongoose": "^5.7.4"
+  },
+  "devDependencies": {
+    "concurrently": "^5.0.0",
+    "nodemon": "^1.19.3"
+  }
+}
