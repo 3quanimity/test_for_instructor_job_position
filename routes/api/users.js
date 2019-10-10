@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
+//Load input validation
+const validateRegisterInput = require('../../validation/newUser');
+
 //Load User model
 const User = require('../../models/User');
 
@@ -9,14 +12,21 @@ const User = require('../../models/User');
 //access    Public
 router.get('/test', (req, res) => res.json({ msg: 'users works' }));
 
-//@route    GET api/users/add
-//desc      Add a new user
+//@route    POST api/users/add_new_user
+//desc      ADD A NEW USER
 //access    Public
 router.post('/add_new_user', (req, res) => {
+  //input validation
+  const { errors, isValid } = validateRegisterInput(req.body);
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
   //check if surName exist already (can be used for email uniqueness check)
   User.findOne({ surName: req.body.surName }).then(user => {
     if (user) {
-      return res.status(400).json({ surName: 'Surname already exists' });
+      errors.surName = 'Surname already exists';
+      return res.status(400).json(errors);
     } else {
       const newUser = new User({
         name: req.body.name,
