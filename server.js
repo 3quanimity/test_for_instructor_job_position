@@ -6,6 +6,10 @@ const pictures = require('./routes/api/pictures');
 
 const app = express();
 
+//Body-parsing
+app.use(express.json()); // for parsing application/json
+app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+
 //DB config
 const db = require('./config/keys').mongoURI;
 
