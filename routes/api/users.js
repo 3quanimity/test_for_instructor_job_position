@@ -9,12 +9,10 @@ const User = require('../../models/User');
 
 //@route    GET api/users/test
 //desc      Tests users route
-//access    Public
 router.get('/test', (req, res) => res.json({ msg: 'users works' }));
 
 //@route    POST api/users/add_new_user
 //desc      ADD A NEW USER
-//access    Public
 router.post('/add_new_user', (req, res) => {
   //input validation
   const { errors, isValid } = validateRegisterInput(req.body);
@@ -40,6 +38,38 @@ router.post('/add_new_user', (req, res) => {
         .catch(err => console.log(err));
     }
   });
+});
+
+//@route    GET api/users/
+//desc      GET ALL USERS
+router.get('/', (req, res) => {
+  User.find()
+    .then(users => res.json(users))
+    .catch(err => console.log(err));
+});
+
+//@route    GET api/users/id
+//desc      GET ONE USER
+router.get('/:id', (req, res) => {
+  User.findOne(req.param.id)
+    .then(users => res.json(users))
+    .catch(err => console.log(err));
+});
+
+//@route    DELETE api/users/id
+//desc      DELETE ONE USER
+router.delete('/:id', (req, res) => {
+  User.findOneAndDelete(req.params.id)
+    .then(() => res.send('user deleted'))
+    .catch(err => res.send(err));
+});
+
+//@route    EDIT api/users/id
+//desc      EDIT ONE USER
+router.put('/:id', (req, res) => {
+  User.findOneAndUpdate(req.params.id, { $set: { ...req.body } })
+    .then(user => res.send(user))
+    .catch(err => res.send(err));
 });
 
 module.exports = router;

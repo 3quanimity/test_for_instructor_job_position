@@ -18,6 +18,10 @@ const UserSchema = new Schema({
   birthYear: {
     type: Number,
     required: true
+  },
+  pictures: {
+    type: Schema.Types.ObjectId,
+    ref: 'pictures'
   }
 });
 

@@ -40,4 +40,28 @@ router.post('/', (req, res) => {
   });
 });
 
+//@route    GET api/pictures/
+//desc      GET ALL PICTURES
+router.get('/', (req, res) => {
+  Picture.find()
+    .then(pictures => res.json(pictures))
+    .catch(err => console.log(err));
+});
+
+//@route    GET api/pictures/id
+//desc      GET ONE PICTURE
+router.get('/:id', (req, res) => {
+  Picture.findOne(req.param.id)
+    .then(pictures => res.json(pictures))
+    .catch(err => console.log(err));
+});
+
+//@route    DELETE api/pictures/id
+//desc      DELETE ONE PICTURE
+router.delete('/:id', (req, res) => {
+  Picture.findOneAndDelete(req.params.id)
+    .then(() => res.send('user deleted'))
+    .catch(err => res.send(err));
+});
+
 module.exports = router;
